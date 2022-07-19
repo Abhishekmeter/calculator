@@ -1,13 +1,13 @@
 import styles from "./Operator.module.css";
 
-function Operator() {
+function Operator(props) {
   return (
     <div className={styles.operators}>
-      <button>/</button>
-      <button>*</button>
-      <button>+</button>
-      <button>-</button>
-      <button>DEL</button>
+      <button onClick={() => props.onInput("/")}>/</button>
+      <button onClick={() => props.onInput("*")}>*</button>
+      <button onClick={() => props.onInput("+")}>+</button>
+      <button onClick={() => props.onInput("-")}>-</button>
+      <button onClick={() => props.onDelete()}>DEL</button>
     </div>
   );
 }

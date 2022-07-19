@@ -1,9 +1,9 @@
-import styles from './Result.module.css';
+import styles from "./Result.module.css";
 
-function Result() {
+function Result(props) {
   return (
     <div className={styles.display}>
-      <span>(0)</span> 0
+      {props.result ? <span>({props.result})</span> : ""} {props.calc || 0}
     </div>
   );
 }

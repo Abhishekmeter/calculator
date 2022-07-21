@@ -7,6 +7,7 @@ import Result from "./components/Result";
 function App() {
   const [calc, setCalc] = useState("");
   const [result, setResult] = useState("");
+  const [scientific, setScientific] = useState(false);
 
   const ops = ["/", "*", "+", "-", "."];
 
@@ -52,12 +53,33 @@ function App() {
     setCalc("");
   };
 
+  const switchCalc = (event) => {
+    if (event.target.value === "Scientific") {
+      setScientific(true);
+    } else {
+      setScientific(false);
+    }
+  };
+
   return (
     <div className="App">
       <div className="calculator">
-        <Result calc={calc} result={result} />
-        <Operator onInput={updateCalc} onDelete={deleteLast} onReset={reset} />
-        <Digit onInput={updateCalc} onEqual={calculate} />
+        <div>
+          <Result calc={calc} result={result} />
+          <Operator
+            onInput={updateCalc}
+            onDelete={deleteLast}
+            onReset={reset}
+          />
+          <Digit onInput={updateCalc} onEqual={calculate} />
+        </div>
+        <button
+          className="scientific"
+          onClick={switchCalc}
+          value={!scientific ? "Scientific" : "Basic"}
+        >
+          {!scientific ? "Scientific" : "Basic"}
+        </button>
       </div>
     </div>
   );

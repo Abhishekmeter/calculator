@@ -3,6 +3,7 @@ import { useState } from "react";
 import Digit from "./components/Digit";
 import Operator from "./components/Operator";
 import Result from "./components/Result";
+import SciOperator from "./components/scientific/SciOperator";
 
 function App() {
   const [calc, setCalc] = useState("");
@@ -36,6 +37,16 @@ function App() {
     }
   };
 
+  const sciCalc = (value) => {
+    
+    //if (event === "sqr") {
+      setCalc((oldState) => {
+        return value + oldState + ",2)";
+      });
+    //}
+    setResult(eval(calc).toString());
+  };
+
   const calculate = () => {
     setCalc(eval(calc).toString());
   };
@@ -64,15 +75,23 @@ function App() {
   return (
     <div className="App">
       <div className="calculator">
-        <div>
-          <Result calc={calc} result={result} />
-          <Operator
-            onInput={updateCalc}
-            onDelete={deleteLast}
-            onReset={reset}
-          />
-          <Digit onInput={updateCalc} onEqual={calculate} />
-        </div>
+        <Result calc={calc} result={result} />
+        {!scientific && (
+          <div>
+            <Operator
+              onInput={updateCalc}
+              onDelete={deleteLast}
+              onReset={reset}
+            />
+            <Digit onInput={updateCalc} onEqual={calculate} />
+          </div>
+        )}
+        {scientific && (
+          <div>
+            <SciOperator onInput={sciCalc} />
+            <Digit onInput={updateCalc} onEqual={calculate} />
+          </div>
+        )}
         <button
           className="scientific"
           onClick={switchCalc}

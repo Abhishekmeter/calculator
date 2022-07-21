@@ -11,13 +11,24 @@ function App() {
   const ops = ["/", "*", "+", "-", "."];
 
   const updateCalc = (value) => {
+    let lastOptIndex = 0;
+    for (let i = 0; i < calc.length; i++) {
+      for (let j = 0; j < 4; j++) {
+        if (calc[i] === ops[j]) {
+          lastOptIndex = i;
+        }
+      }
+    }
     if (
       (ops.includes(value) && calc === "") ||
-      (ops.includes(value) && ops.includes(calc.slice(-1)))
+      (ops.includes(value) && ops.includes(calc.slice(-1))) ||
+      (value === "." && calc.slice(lastOptIndex + 1).includes("."))
     ) {
       return;
     }
-    setCalc(calc + value);
+    setCalc((oldState) => {
+      return oldState + value;
+    });
 
     if (!ops.includes(value)) {
       setResult(eval(calc + value).toString());

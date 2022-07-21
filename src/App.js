@@ -47,11 +47,16 @@ function App() {
     setCalc(value);
   };
 
+  const reset = () => {
+    setResult("");
+    setCalc("");
+  };
+
   return (
     <div className="App">
       <div className="calculator">
         <Result calc={calc} result={result} />
-        <Operator onInput={updateCalc} onDelete={deleteLast} />
+        <Operator onInput={updateCalc} onDelete={deleteLast} onReset={reset} />
         <Digit onInput={updateCalc} onEqual={calculate} />
       </div>
     </div>

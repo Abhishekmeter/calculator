@@ -1,13 +1,13 @@
-import { TbSuperscript } from "react-icons/tb";
+import { TbSquareRoot2 } from "react-icons/tb";
 
-function Square(props) {
+function SquareRoot(props) {
   return (
     <div>
-      <button onClick={() => props.onInput("Math.pow(")}>
-        <TbSuperscript />
+      <button onClick={() => props.onInput(Math.sqrt(props.calc))}>
+        <TbSquareRoot2 />
       </button>
     </div>
   );
 }
 
-export default Square;
+export default SquareRoot;

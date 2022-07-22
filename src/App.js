@@ -37,14 +37,24 @@ function App() {
     }
   };
 
-  const sciCalc = (value) => {
-    
-    //if (event === "sqr") {
-      setCalc((oldState) => {
-        return value + oldState + ",2)";
-      });
-    //}
-    setResult(eval(calc).toString());
+  const onSquare = (value) => {
+    setCalc(value);
+    setResult(value);
+  };
+
+  const onSquareRoot = (value) => {
+    setCalc(value);
+    setResult(value);
+  };
+
+  const onReverse = (value) => {
+    setCalc(value);
+    setResult(value);
+  };
+
+  const exponent = (value) => {
+    setCalc(value);
+    setResult(value);
   };
 
   const calculate = () => {
@@ -88,7 +98,14 @@ function App() {
         )}
         {scientific && (
           <div>
-            <SciOperator onInput={sciCalc} />
+            <SciOperator
+              onSquare={onSquare}
+              calc={calc}
+              onReset={reset}
+              onSquareRoot={onSquareRoot}
+              onReverse={onReverse}
+              exponent={exponent}
+            />
             <Digit onInput={updateCalc} onEqual={calculate} />
           </div>
         )}

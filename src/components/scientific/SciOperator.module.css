@@ -1,9 +1,9 @@
 .scioperator {
-    display: flex;
-  }
-  
-  .scioperator button {
-    flex: 1 1 0%;
-    background-color: var(--primary);
-    font-weight: 700;
-  }
+  display: flex;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.scioperator div button {
+  background-color: var(--primary);
+}

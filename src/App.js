@@ -14,45 +14,33 @@ function App() {
 
   const updateCalc = (value) => {
     let lastOptIndex = 0;
-    for (let i = 0; i < calc.length; i++) {
-      for (let j = 0; j < 4; j++) {
-        if (calc[i] === ops[j]) {
-          lastOptIndex = i;
+    if (result !== undefined && calc !== undefined) {
+      for (let i = 0; i < calc.length; i++) {
+        for (let j = 0; j < 4; j++) {
+          if (calc[i] === ops[j]) {
+            lastOptIndex = i;
+          }
         }
       }
+      
+      if (
+        (ops.includes(value) && calc === "") ||
+        (ops.includes(value) && ops.includes(calc.toString().slice(-1))) ||
+        (value === "." && calc.toString().slice(lastOptIndex + 1).includes("."))
+      ) {
+        return;
+      }
+      setCalc((oldState) => {
+        return oldState + value;
+      });
+
+      if (!ops.includes(value)) {
+        setResult(eval(calc + value).toString());
+      }
     }
-    if (
-      (ops.includes(value) && calc === "") ||
-      (ops.includes(value) && ops.includes(calc.slice(-1))) ||
-      (value === "." && calc.slice(lastOptIndex + 1).includes("."))
-    ) {
-      return;
-    }
-    setCalc((oldState) => {
-      return oldState + value;
-    });
-
-    if (!ops.includes(value)) {
-      setResult(eval(calc + value).toString());
-    }
   };
 
-  const onSquare = (value) => {
-    setCalc(value);
-    setResult(value);
-  };
-
-  const onSquareRoot = (value) => {
-    setCalc(value);
-    setResult(value);
-  };
-
-  const onReverse = (value) => {
-    setCalc(value);
-    setResult(value);
-  };
-
-  const exponent = (value) => {
+  const setValue = (value) => {
     setCalc(value);
     setResult(value);
   };
@@ -61,17 +49,17 @@ function App() {
     setCalc(eval(calc).toString());
   };
 
+  const reset = () => {
+    setCalc("");
+    setResult("");
+  };
+
   const deleteLast = () => {
     if (calc === "") {
       return;
     }
     const value = calc.slice(0, -1);
     setCalc(value);
-  };
-
-  const reset = () => {
-    setResult("");
-    setCalc("");
   };
 
   const switchCalc = (event) => {
@@ -99,12 +87,9 @@ function App() {
         {scientific && (
           <div>
             <SciOperator
-              onSquare={onSquare}
               calc={calc}
               onReset={reset}
-              onSquareRoot={onSquareRoot}
-              onReverse={onReverse}
-              exponent={exponent}
+              onOperation={setValue}
             />
             <Digit onInput={updateCalc} onEqual={calculate} />
           </div>
@@ -112,9 +97,9 @@ function App() {
         <button
           className="scientific"
           onClick={switchCalc}
-          value={!scientific ? "Scientific" : "Basic"}
+          value={!scientific ? "Scientific" : "Standard"}
         >
-          {!scientific ? "Scientific" : "Basic"}
+          {!scientific ? "Scientific" : "Standard"}
         </button>
       </div>
     </div>

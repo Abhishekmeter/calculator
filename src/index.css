@@ -26,7 +26,7 @@ body {
 
 .calculator {
   width: 100%;
-  max-width: 400px;
+  max-width: 522px;
   background-color: white;
   border-radius: 16px;
   overflow: hidden;
@@ -50,6 +50,6 @@ button:hover {
 
 .scientific {
   width: 100%;
-  max-width: 400px;
+  max-width: 522px;
   background-color: var(--secondary);
 }
